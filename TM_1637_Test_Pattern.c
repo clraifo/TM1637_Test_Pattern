@@ -131,13 +131,19 @@ void loop() {
     }
   }
 
-  // Step 5: Blink the colon between positions 2 and 3
-  for (int i = 0; i < 4; i++) {
-    displaySegment(1, 0x80); // Colon ON
+// Set all digits to "9"
+for (uint8_t position = 0; position < 4; position++) {
+    displaySegment(position, 0x6F); // Number 9
+}
+
+// Step 5: Blink only the colon between positions 2 and 3
+for (int i = 0; i < 4; i++) {
+    displaySegment(1, 0x80 | 0x6F); // Colon ON with number 9
     delay(10000 / (8 * 4));  // 4 blinks, ON and OFF
-    displaySegment(1, 0x00); // Colon OFF
+    displaySegment(1, 0x6F); // Colon OFF (but number 9 remains)
     delay(10000 / (8 * 4));
-  }
+}
+
 
   // Step 6: Blink the entire TM1637 three times
   for (int i = 0; i < 3; i++) {
@@ -154,7 +160,6 @@ void loop() {
 
   delay(2000);  // Wait for 2 seconds before restarting the test pattern (to fill up the remaining time and easily distinguish between tests)
 }
-
 
 
 
